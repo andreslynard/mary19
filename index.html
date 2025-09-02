@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Mary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to bottom, #f3e5f5, #e1bee7);
+            color: #4a148c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(74, 20, 140, 0.2);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+            border: 2px solid #7b1fa2;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: fall 10s linear infinite;
+            color: #7b1fa2;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.7;
+        }
+        
+        .cake {
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .flower {
+            font-size: 20px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #6a1b9a;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .date {
+            font-style: italic;
+            color: #8e24aa;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .letter-content {
+            line-height: 1.8;
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .letter-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #6a1b9a;
+            margin-top: 25px;
+        }
+        
+        .music-player {
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 245, 250, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
+            border: 1px solid #ba68c8;
+        }
+        
+        .music-player h3 {
+            margin-bottom: 20px;
+            color: #6a1b9a;
+            font-size: 1.5rem;
+        }
+        
+        .song-selector {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .song-btn {
+            background: #8e24aa;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .song-btn:hover {
+            background: #6a1b9a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .song-btn.active {
+            background: #4a148c;
+            box-shadow: 0 0 0 3px rgba(74, 20, 140, 0.3);
+        }
+        
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: #7b1fa2;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            background: #6a1b9a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .control-btn:disabled {
+            background: #ba68c8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 15px;
+            border-radius: 50px;
+        }
+        
+        .now-playing {
+            margin-top: 20px;
+            font-style: italic;
+            color: #8e24aa;
+            min-height: 24px;
+            background: rgba(255, 245, 250, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 1.1rem;
+            border: 1px solid #ce93d8;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #8e24aa;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .envelope {
+            text-align: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            padding: 40px 20px;
+        }
+        
+        .envelope i {
+            font-size: 80px;
+            color: #7b1fa2;
+            margin-bottom: 20px;
+        }
+        
+        .envelope p {
+            font-size: 1.3rem;
+            color: #4a148c;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .song-progress {
+            width: 100%;
+            height: 6px;
+            background: #e1bee7;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #7b1fa2;
+            border-radius: 5px;
+            transition: width 0.1s ease;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #8e24aa;
+        }
+        
+        .birthday-theme {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #7b1fa2;
+        }
+        
+        @media (max-width: 650px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .letter-content {
+                font-size: 1rem;
+            }
+            
+            .music-controls {
+                flex-direction: column;
+            }
+            
+            .song-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .song-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Decorative elements -->
+    <div class="decoration cake" style="top: 10%; left: 5%;">🎂</div>
+    <div class="decoration cake" style="top: 80%; left: 90%;">🎂</div>
+    <div class="decoration flower" style="top: 20%; left: 90%;">💮</div>
+    <div class="decoration flower" style="top: 70%; left: 5%;">🌸</div>
+    <div class="decoration flower" style="top: 40%; left: 3%;">🌺</div>
+    <div class="decoration flower" style="top: 50%; left: 93%;">🌷</div>
+    
+    <div class="container">
+        <div class="birthday-theme">🎉🎈🎁</div>
+        
+        <div class="envelope" id="envelope">
+            <i class="fas fa-envelope-open-text"></i>
+            <p>Happy 19th Mary ❤️</p>
+        </div>
+        
+        <div id="letter" class="hidden">
+            <header>
+                <h1>Happy Birthday Baby!</h1>
+                <div class="date">September 4, 2025</div>
+            </header>
+            
+            <div class="letter-content">
+                <p>My love,</p>
+                
+                <p>Happy 19th birthday baby! Grabe you're already two years older than I am. But kidding aside, I want to greet you a Happy Birthday Mary. Although we are 250 km apart, I want you to know that you are always in my heart.</p>
+                
+                <p>Every day and every moment, I miss and yearn for you, and I am so devastated na I can't be with you to celeberate your birthday. But I hope with this simple gift, I can show my love and appreciation online.</p>
+                
+                <p>I remember your debut, when you looked so beautiful and radiant. It was the night where I got to spend time with you and your family in a special occasion. It was also our first birthday celebrated together. Looking back, I missed that moment, being your man and special someone during that time, giving you your gift and being able to kiss you in front of people still makes my heart flutter. How I wish we could have done the same this time around.</p>
+                
+                <p>But nevertheless, amidst the distance, my love for you only grows stronger. All I wish for you is to be happy; to be happy with your life, to live life free of worry, to live life with joy, to be healthy, and for us to experience our birthdays together. I hope sa sunod, magkasama na tayo sa ating mga kaarawan.</p>
+                
+                <p>I love you Mary, and I hope na you'd appreciate this small gesture of mine, a reminder that I'm always here for you, no matter the distance. Andito lang ako palagi, palaging nagmamahal and wishing the best for my love. Happy Birthday to my number one fan, and my forever lover, and my loving girlfriend. mwah</p>
+                
+                <p>Forever yours,</p>
+                <p class="signature">Lynard</p>
+            </div>
+            
+            <div class="music-player">
+                <h3>Our Songs</h3>
+                
+                <div class="song-selector">
+                    <button class="song-btn" data-song="0">Glue Song</button>
+                    <button class="song-btn" data-song="1">Perfect Pair</button>
+                    <button class="song-btn" data-song="2">ONLY</button>
+                    <button class="song-btn" data-song="3">Someone To Spend Time With</button>
+                    <button class="song-btn" data-song="4">THE SHADE</button>
+                    <button class="song-btn" data-song="5">Sparks</button>
+                    <button class="song-btn" data-song="6">Apocalypse</button>
+                    <button class="song-btn" data-song="7">Here With Me</button>
+                    <button class="song-btn" data-song="8">For Lovers 恋人へ</button>
+                    <button class="song-btn" data-song="9">I Want You By My Side</button>
+                    <button class="song-btn" data-song="10">Your Universe</button>
+                </div>
+                
+                <div class="now-playing" id="nowPlaying">Select a song to begin</div>
+                
+                <div class="song-progress" id="progressContainer">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="totalTime">0:00</span>
+                </div>
+                
+                <div class="music-controls">
+                    <button class="control-btn" id="prevBtn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="control-btn" id="playBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="nextBtn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up" id="volumeIcon"></i>
+                        <input type="range" id="volumeSlider" min="0" max="100" step="1" value="70">
+                    </div>
+                </div>
+                
+                <audio id="audioPlayer"></audio>
+            </div>
+            
+            <footer>
+                <p>i luv you baby <i class="fas fa-heart" style="color: #7b1fa2;"></i></p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        const heartsContainer = document.getElementById('hearts');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const songButtons = document.querySelectorAll('.song-btn');
+        
+        // Song data with direct audio links
+        const songs = [
+            {
+                title: 'Glue Song - beabadoobee',
+                src: 'Audio/beabadoobee - Glue Song.mp3'
+            },
+            {
+                title: 'Perfect Pair - beabadoobee',
+                src: 'Audio/beabadoobee - the perfect pair.mp3'
+            },
+            {
+                title: 'ONLY - LeeHi',
+                src: 'Audio/Lee Hi - ONLY.mp3'
+            },
+            {
+                title: 'Los Retros - Someone To Spend Time With',
+                src: 'Audio/Los Retros - Someone To Spend Time With.mp3'
+            },
+            {
+                title: 'Rex Orange County - THE SHADE',
+                src: 'Audio/Rex Orange County - THE SHADE.mp3'
+            },
+            {
+                title: 'Coldplay - Sparks',
+                src: 'Audio/Coldplay - Sparks.mp3'
+            },
+            {
+                title: 'Cigarettes After Sex - Apocalypse',
+                src: 'Audio/Apocalypse - Cigarettes After Sex.mp3'
+            },
+            {
+                title: 'd4vd - Here With Me',
+                src: 'Audio/d4vd - Here With Me.mp3'
+            },
+            {
+                title: 'Lamp - For Lovers',
+                src: 'Audio/Lamp - For Lovers 恋人へ.mp3'
+            },
+            {
+                title: 'yuragi - I Want You By My Side',
+                src: 'Audio/I Want You By My Side.mp3'
+            },
+            {
+                title: 'Rico Blanco - Your Universe',
+                src: 'Audio/Your Universe.mp3'
+            }
+        ];
+        
+        // Player state
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let updateProgressInterval;
+        
+        // Create floating hearts
+        function createHearts() {
+            const heartEmojis = ['❤️', '💖', '💕', '💗', '💓', '💘'];
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Open the letter
+        envelope.addEventListener('click', function() {
+            envelope.classList.add('hidden');
+            letter.classList.remove('hidden');
+            createHearts();
+            
+            // Load the first song
+            loadSong(currentSongIndex);
+        });
+        
+        // Format time for display (mm:ss)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Load a song
+        function loadSong(index) {
+            // Reset active class from all buttons
+            songButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Set active class to current song button
+            songButtons[index].classList.add('active');
+            
+            currentSongIndex = index;
+            const song = songs[index];
+            
+            audioPlayer.src = song.src;
+            audioPlayer.load();
+            
+            updateNowPlaying();
+            
+            // Enable buttons
+            playBtn.disabled = false;
+            prevBtn.disabled = false;
+            nextBtn.disabled = false;
+            
+            // When metadata is loaded, update total time
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                totalTimeEl.textContent = formatTime(audioPlayer.duration);
+            });
+        }
+        
+        // Play the current song
+        function playSong() {
+            audioPlayer.play();
+            isPlaying = true;
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            
+            // Start updating progress
+            clearInterval(updateProgressInterval);
+            updateProgressInterval = setInterval(updateProgress, 500);
+        }
+        
+        // Pause the current song
+        function pauseSong() {
+            audioPlayer.pause();
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            clearInterval(updateProgressInterval);
+        }
+        
+        // Play previous song
+        function playPrevSong() {
+            let prevIndex = currentSongIndex - 1;
+            if (prevIndex < 0) {
+                prevIndex = songs.length - 1;
+            }
+            loadSong(prevIndex);
+            if (isPlaying) {
+                playSong();
+            }
+        }
+        
+        // Play next song
+        function playNextSong() {
+            let nextIndex = currentSongIndex + 1;
+            if (nextIndex > songs.length - 1) {
+                nextIndex = 0;
+            }
+            loadSong(nextIndex);
+            if (isPlaying) {
+                playSong();
+            }
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = `${percent}%`;
+                currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+            }
+        }
+        
+        // Set progress bar on click
+        progressContainer.addEventListener('click', function(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audioPlayer.duration;
+            
+            audioPlayer.currentTime = (clickX / width) * duration;
+        });
+        
+        // Update now playing text
+        function updateNowPlaying() {
+            nowPlaying.textContent = `Now playing: ${songs[currentSongIndex].title}`;
+        }
+        
+        // Event listeners for buttons
+        playBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                pauseSong();
+            } else {
+                playSong();
+            }
+        });
+        
+        prevBtn.addEventListener('click', playPrevSong);
+        nextBtn.addEventListener('click', playNextSong);
+        
+        // Song selection buttons
+        songButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const songIndex = parseInt(this.dataset.song);
+                loadSong(songIndex);
+                playSong();
+            });
+        });
+        
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audioPlayer.volume = volumeSlider.value / 100;
+            
+            // Update volume icon
+            if (volumeSlider.value == 0) {
+                volumeIcon.className = 'fas fa-volume-mute';
+            } else if (volumeSlider.value < 50) {
+                volumeIcon.className = 'fas fa-volume-down';
+            } else {
+                volumeIcon.className = 'fas fa-volume-up';
+            }
+        });
+        
+        // When song ends, play next one
+        audioPlayer.addEventListener('ended', playNextSong);
+        
+        // Initialize audio player volume
+        audioPlayer.volume = 0.7;
+        
+        // Disable buttons until a song is selected
+        playBtn.disabled = true;
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+    </script>
+</body>
+</html>
